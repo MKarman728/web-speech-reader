@@ -1,6 +1,6 @@
 const main = document.querySelector('main');
 const voicesSelect = document.getElementById('voices');
-const text = document.getElementById('text');
+const textarea = document.getElementById('text');
 const readBtn = document.getElementById('read');
 const toggleBtn = document.getElementById('toggle');
 const closeBtn = document.getElementById('close');
@@ -108,6 +108,11 @@ function speakText() {
     speechSynthesis.speak(message);
 }
 
+// Set voice
+function setVoice(e) {
+    message.voice = voices.find(voice => voice.name === e.target.value);
+}
+
 // Voices changed
 speechSynthesis.addEventListener('voiceschanged', getVoices);
 
@@ -116,5 +121,15 @@ toggleBtn.addEventListener('click', () => document.getElementById('text-box').cl
 
 // Close button
 closeBtn.addEventListener('click', () => document.getElementById('text-box').classList.toggle('show'));
+
+// Change voice
+voicesSelect.addEventListener('change', setVoice);
+
+// Read text button
+readBtn.addEventListener('click', () => {
+    console.log('test');
+    setTextMessage(textarea.value);
+    speakText();
+})
 
 getVoices();
